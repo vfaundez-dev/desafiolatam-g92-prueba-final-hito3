@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const {
-  getProducts, getProductById, createProduct, updateProduct, disableProduct, updateStock
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  disableProduct,
+  updateProductStock
 } = require("../controllers/productos.controller");
 const validarToken = require("../middlewares/validarToken");
 
@@ -30,7 +35,7 @@ router.put("/:id", validarToken, updateProduct);
 /**
  * PUT /api/productos/:id/stock
  */
-router.put("/:id/stock", validarToken, updateStock);
+router.put("/:id/stock", validarToken, updateProductStock);
 
 /**
  * DELETE /api/productos/:id

@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const {
-  getDetailsByOrder, getDetailById, addDetail, updateDetail, removeDetail
+  getOrderDetails,       
+  getOrderDetailById,    
+  getOrderDetailsByOrder,
+  createOrderDetail,     
+  updateOrderDetail,     
+  removeOrderDetail
 } = require("../controllers/ordenes_detalle.controller");
 const validarToken = require("../middlewares/validarToken");
 
@@ -10,27 +15,27 @@ const router = Router({ mergeParams: true });
 /**
  * GET /api/ordenes/:id_orden/detalle
  */
-router.get("/", validarToken, getDetailsByOrder);
+router.get("/", validarToken, getOrderDetailsByOrder);
 
 /**
  * GET /api/ordenes/:id_orden/detalle/:id
  */
-router.get("/:id", validarToken, getDetailById);
+router.get("/:id", validarToken, getOrderDetailById);
 
 /**
  * POST /api/ordenes/:id_orden/detalle
  */
-router.post("/", validarToken, addDetail);
+router.post("/", validarToken, createOrderDetail);
 
 /**
  * PUT /api/ordenes/:id_orden/detalle/:id
  */
-router.put("/:id", validarToken, updateDetail);
+router.put("/:id", validarToken, updateOrderDetail);
 
 /**
  * DELETE /api/ordenes/:id_orden/detalle/:id
  */
-router.delete("/:id", validarToken, removeDetail);
+router.delete("/:id", validarToken, removeOrderDetail);
 
 
 module.exports = router;

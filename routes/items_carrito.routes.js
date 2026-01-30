@@ -1,5 +1,12 @@
 const { Router } = require("express");
-const { getItemsByCart, getItemById, addItem, updateItem, removeItem } = require("../controllers/items_carrito.controller");
+const {
+  getItems,      
+  getItemById,   
+  getItemsByCart,
+  createItem,    
+  updateItem,    
+  removeItem
+} = require("../controllers/items_carrito.controller");
 const validarToken = require("../middlewares/validarToken");
 
 const router = Router({ mergeParams: true });
@@ -18,7 +25,7 @@ router.get("/:id", validarToken, getItemById);
 /**
  * POST /api/carrito/:id_carrito/items
  */
-router.post("/", validarToken, addItem);
+router.post("/", validarToken, createItem);
 
 /**
  * PUT /api/carrito/:id_carrito/items/:id

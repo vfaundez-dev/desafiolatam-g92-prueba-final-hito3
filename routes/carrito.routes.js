@@ -1,5 +1,11 @@
 const { Router } = require("express");
-const { getCarts, getCartById, getCartByUser, createCart, deleteCart } = require("../controllers/carrito.controller");
+const {
+  getCarts,     
+  getCartById,  
+  getCartByUser,
+  createCart,   
+  removeCart
+} = require("../controllers/carrito.controller");
 const validarToken = require("../middlewares/validarToken");
 
 const router = Router();
@@ -28,7 +34,7 @@ router.post("/", validarToken, createCart);
 /**
  * DELETE /api/carrito/:id
  */
-router.delete("/:id", validarToken, deleteCart);
+router.delete("/:id", validarToken, removeCart);
 
 
 module.exports = router;
