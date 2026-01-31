@@ -1,5 +1,5 @@
 CREATE TABLE "usuarios" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "nombre" varchar(150) NOT NULL,
   "email" varchar(50) UNIQUE NOT NULL,
   "password" varchar(150) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE "usuarios" (
 );
 
 CREATE TABLE "productos" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" varchar(150) NOT NULL,
   "description" varchar(150),
   "precio" integer NOT NULL,
@@ -25,13 +25,13 @@ CREATE TABLE "productos" (
 );
 
 CREATE TABLE "carrito" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_usuario" integer NOT NULL,
   "fecha_creacion" timestamp
 );
 
 CREATE TABLE "items_carrito" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_carrito" integer NOT NULL,
   "id_producto" integer NOT NULL,
   "cantidad" integer NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE "items_carrito" (
 );
 
 CREATE TABLE "ordenes" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_usuario" integer NOT NULL,
   "total_pagar" integer NOT NULL,
   "status" varchar(30),
@@ -47,7 +47,7 @@ CREATE TABLE "ordenes" (
 );
 
 CREATE TABLE "ordenes_detalle" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_orden" integer NOT NULL,
   "id_producto" integer NOT NULL,
   "cantidad" integer NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE "ordenes_detalle" (
 );
 
 CREATE TABLE "favoritos" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_usuario" integer NOT NULL,
   "id_producto" integer NOT NULL,
   "fecha_creacion" timestamp
@@ -78,7 +78,6 @@ ALTER TABLE "favoritos" ADD FOREIGN KEY ("id_usuario") REFERENCES "usuarios" ("i
 ALTER TABLE "favoritos" ADD FOREIGN KEY ("id_producto") REFERENCES "productos" ("id");
 
 INSERT INTO usuarios (
-  id,
   nombre,
   email,
   password,
@@ -89,7 +88,6 @@ INSERT INTO usuarios (
   fecha_creacion,
   fecha_modificacion
 ) VALUES (
-  1,
   'Administrador',
   'admin@email.com',
   '$2b$10$gestnAseLxvYseZjphqd.uksUYp45y5eRXk3kTDnY2ORzN4C8klgK',
@@ -102,7 +100,6 @@ INSERT INTO usuarios (
 );
 
 INSERT INTO usuarios (
-  id,
   nombre,
   email,
   password,
@@ -113,7 +110,6 @@ INSERT INTO usuarios (
   fecha_creacion,
   fecha_modificacion
 ) VALUES (
-  2,
   'Usuario Prueba',
   'user@email.com',
   '$2b$10$gestnAseLxvYseZjphqd.uksUYp45y5eRXk3kTDnY2ORzN4C8klgK',
