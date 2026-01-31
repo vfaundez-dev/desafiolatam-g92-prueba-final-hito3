@@ -29,6 +29,7 @@ Backend REST API desarrollado en Node.js, Express y PostgreSQL, con autenticaci√
 | ------ | -------------- | ------------------------- |
 | POST   | /auth/register | Registrar nuevo usuario   |
 | POST   | /auth/login    | Iniciar sesi√≥n            |
+| POST   | /auth/me       | Obtener datos del usuario |
 
 #### USUARIOS
 
