@@ -167,6 +167,12 @@ const updateUser = async (req, res) => {
     const { id } = req.params;
     const data = req.body;
 
+    if (id == 1) {
+      return res.status(403).json({
+        message: "No se puede modificar el usuario administrador"
+      });
+    }
+
     const updated = await update(id, data);
     if (!updated) {
       return res.status(404).json({
@@ -189,6 +195,12 @@ const updateUser = async (req, res) => {
 const disableUser = async (req, res) => {
   try {
     const { id } = req.params;
+
+    if (id == 1) {
+      return res.status(403).json({
+        message: "No se puede modificar el usuario administrador"
+      });
+    }
 
     const disabled = await disable(id);
     if (!disabled) {
