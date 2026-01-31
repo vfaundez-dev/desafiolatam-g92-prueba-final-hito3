@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const getAll = async () => {
   try {
 
-    const query = format(`SELECT * FROM usuarios ORDER BY id ASC`);
+    const query = format(`SELECT * FROM usuarios WHERE activo = 1 ORDER BY id ASC`);
     const response = await pool.query(query);
     return response.rows;
 
@@ -19,7 +19,7 @@ const getAll = async () => {
 const getById = async (id) => {
   try {
 
-    const query = format(`SELECT * FROM usuarios WHERE id = %L`, id);
+    const query = format(`SELECT * FROM usuarios WHERE id = %L AND activo = 1`, id);
     const response = await pool.query(query);
     return response.rows[0] || null;
 
@@ -32,7 +32,7 @@ const getById = async (id) => {
 const getByEmail = async (email) => {
   try {
 
-    const query = format(`SELECT * FROM usuarios WHERE email = %L`, email);
+    const query = format(`SELECT * FROM usuarios WHERE email = %L AND activo = 1`, email);
     const response = await pool.query(query);
     return response.rows[0] || null;
 
@@ -42,7 +42,7 @@ const getByEmail = async (email) => {
   }
 };
 
-const create = async ({nombre, email, password, direccion = null, ciudad = null, comuna = null, activo = true}) => {
+const create = async ({nombre, email, password, direccion = null, ciudad = null, comuna = null, activo = 1}) => {
   try {
     const passwordEncriptada = await bcrypt.hash(password, 10);
 
@@ -98,7 +98,7 @@ const disable = async (id) => {
 
     const query = format(`
       UPDATE usuarios
-      SET activo = false, fecha_modificacion = NOW()
+      SET activo = 0, fecha_modificacion = NOW()
       WHERE id = %L
       RETURNING *
     `, id);
@@ -115,7 +115,7 @@ const disable = async (id) => {
 const auth = async (email, password) => {
   try {
 
-    const query = format(`SELECT * FROM usuarios WHERE email = %L AND activo = true`, email);
+    const query = format(`SELECT * FROM usuarios WHERE email = %L AND activo = 1`, email);
     const response = await pool.query(query);
 
     const user = response.rows[0];

@@ -1,6 +1,7 @@
 const { Router } = require("express");
-const { login, register } = require("../controllers/usuarios.controller");
+const { login, register, me } = require("../controllers/usuarios.controller");
 const validarCredenciales = require("../middlewares/validarCredenciales");
+const validarToken = require("../middlewares/validarToken");
 
 const router = Router();
 
@@ -14,6 +15,12 @@ router.post("/login", validarCredenciales, login);
  * POST /api/auth/register
  */
 router.post("/register", register);
+
+
+/**
+ * POST /api/auth/me
+ */
+router.post("/me", validarToken, me);
 
 
 module.exports = router;

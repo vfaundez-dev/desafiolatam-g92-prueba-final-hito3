@@ -79,6 +79,54 @@ const register = async (req, res) => {
 };
 
 
+const me = async (req, res) => {
+  try {
+    
+    // Obtenemos token del header
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        message: "Token no proporcionado"
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    // Verificamos y decodificamos el token
+    let decoded;
+    try {
+      decoded = jwt.verify(token, process.env.JWT_KEY);
+    } catch (err) {
+      return res.status(401).json({
+        message: "Token inválido"
+      });
+    }
+
+    // Obtenemos datos del usuario
+    const userId = decoded.id;
+    const user = await getById(userId);
+    if (!user) {
+      return res.status(404).json({
+        message: "Usuario no encontrado"
+      });
+    }
+
+    // Solo filtrar datos necesarios
+    delete user.password;
+    delete user.fecha_creacion;
+    delete user.fecha_modificacion;
+
+    res.json(user);
+
+  } catch (error) {
+    res.status(500).json({
+      message: "Error al obtener datos del usuario",
+      error: error.message
+    });
+  }
+};
+
+
 /*-- USUARIOS --*/
 
 const getUsers = async (req, res) => {
@@ -165,6 +213,7 @@ const disableUser = async (req, res) => {
 module.exports = {
   login,
   register,
+  me,
   getUsers,
   getUserById,
   updateUser,

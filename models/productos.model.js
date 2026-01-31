@@ -8,6 +8,7 @@ const getAll = async () => {
     const query = format(`
       SELECT * 
       FROM productos
+      WHERE activo = 1
       ORDER BY id ASC
     `);
     const response = await pool.query(query);
@@ -25,7 +26,7 @@ const getById = async (id) => {
     const query = format(`
       SELECT *
       FROM productos
-      WHERE id = %L
+      WHERE id = %L AND activo = 1
     `, id);
 
     const response = await pool.query(query);
@@ -37,7 +38,7 @@ const getById = async (id) => {
   }
 };
 
-const create = async ({name, description = null, precio, stock, imagen_url, categoria = null, activo = true}) => {
+const create = async ({name, description = null, precio, stock, imagen_url, categoria = null, activo = 1}) => {
   try {
 
     const query = format(`
@@ -92,7 +93,7 @@ const disable = async (id) => {
 
     const query = format(`
       UPDATE productos
-      SET activo = false, fecha_modificacion = NOW()
+      SET activo = 0, fecha_modificacion = NOW()
       WHERE id = %L
       RETURNING *
     `, id);

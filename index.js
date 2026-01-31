@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 
+const { testDBConnection } = require("./config/database");
 const usuariosRoutes = require("./routes/usuarios.routes");
 const authRoutes = require("./routes/auth.routes");
 const productosRoutes = require("./routes/productos.routes");
@@ -39,4 +40,6 @@ app.use("/api/favoritos", favoritosRoutes);
 // Iniciar el servidor
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en: http://localhost:${PORT}`);
+  // Probar conexion a la base de datos
+  testDBConnection();
 });
