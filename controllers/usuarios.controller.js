@@ -41,7 +41,7 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   try {
 
-    const {nombre, email, password, direccion, ciudad, comuna} = req.body;
+    const { nombre, email, password, direccion, ciudad, comuna } = req.body;
 
     if (!nombre || !email || !password) {
       return res.status(400).json({
@@ -65,9 +65,15 @@ const register = async (req, res) => {
       comuna
     });
 
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email },
+      process.env.JWT_KEY,
+      { expiresIn: "1h" }
+    );
+
     res.status(201).json({
       message: "Usuario registrado exitosamente",
-      user: newUser
+      token
     });
 
   } catch (error) {
@@ -81,7 +87,7 @@ const register = async (req, res) => {
 
 const me = async (req, res) => {
   try {
-    
+
     // Obtenemos token del header
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
