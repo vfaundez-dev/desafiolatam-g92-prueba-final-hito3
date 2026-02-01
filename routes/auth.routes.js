@@ -18,9 +18,9 @@ router.post("/register", register);
 
 
 /**
- * POST /api/auth/me
+ * GET /api/auth/me
  */
-router.post("/me", validarToken, me);
+router.get("/me", validarToken, me);
 
 
 module.exports = router;

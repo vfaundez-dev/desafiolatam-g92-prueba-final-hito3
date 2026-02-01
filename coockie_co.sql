@@ -1,5 +1,5 @@
 CREATE TABLE "usuarios" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "nombre" varchar(150) NOT NULL,
   "email" varchar(50) UNIQUE NOT NULL,
   "password" varchar(150) NOT NULL,
@@ -12,9 +12,9 @@ CREATE TABLE "usuarios" (
 );
 
 CREATE TABLE "productos" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" varchar(150) NOT NULL,
-  "description" varchar(150),
+  "description" varchar(250),
   "precio" integer NOT NULL,
   "stock" integer NOT NULL,
   "imagen_url" text NOT NULL,
@@ -25,13 +25,13 @@ CREATE TABLE "productos" (
 );
 
 CREATE TABLE "carrito" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_usuario" integer NOT NULL,
   "fecha_creacion" timestamp
 );
 
 CREATE TABLE "items_carrito" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_carrito" integer NOT NULL,
   "id_producto" integer NOT NULL,
   "cantidad" integer NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE "items_carrito" (
 );
 
 CREATE TABLE "ordenes" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_usuario" integer NOT NULL,
   "total_pagar" integer NOT NULL,
   "status" varchar(30),
@@ -47,7 +47,7 @@ CREATE TABLE "ordenes" (
 );
 
 CREATE TABLE "ordenes_detalle" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_orden" integer NOT NULL,
   "id_producto" integer NOT NULL,
   "cantidad" integer NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE "ordenes_detalle" (
 );
 
 CREATE TABLE "favoritos" (
-  "id" integer PRIMARY KEY,
+  "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "id_usuario" integer NOT NULL,
   "id_producto" integer NOT NULL,
   "fecha_creacion" timestamp

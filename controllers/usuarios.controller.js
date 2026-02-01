@@ -65,9 +65,16 @@ const register = async (req, res) => {
       comuna
     });
 
+    const token = jwt.sign(
+      { id: newUser.id, email: newUser.email },
+      process.env.JWT_KEY,
+      { expiresIn: "1h" }
+    );
+
     res.status(201).json({
       message: "Usuario registrado exitosamente",
-      user: newUser
+      user: newUser,
+      token: token
     });
 
   } catch (error) {
