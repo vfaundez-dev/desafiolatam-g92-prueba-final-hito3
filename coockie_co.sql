@@ -14,7 +14,7 @@ CREATE TABLE "usuarios" (
 CREATE TABLE "productos" (
   "id" integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" varchar(150) NOT NULL,
-  "description" varchar(250),
+  "description" text,
   "precio" integer NOT NULL,
   "stock" integer NOT NULL,
   "imagen_url" text NOT NULL,
